@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "pundit/version"
+require_relative 'pundit/version'
+require 'yaml'
 
 module RuboCop
   module Pundit
@@ -13,4 +14,3 @@ module RuboCop
     private_constant(:CONFIG_DEFAULT, :PROJECT_ROOT)
   end
 end
-
