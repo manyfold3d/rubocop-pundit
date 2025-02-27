@@ -1,0 +1,10 @@
+Pundit/UsePolicyScope:
+  Description: 'TODO: Write a description of the cop.'
+  Enabled: true
+  VersionAdded: '<<next>>'
+  Exclude:
+    - app/jobs/**/*
+    - config/**/*
+    - db/**/*
+    - spec/**/*
+    - test/**/*
