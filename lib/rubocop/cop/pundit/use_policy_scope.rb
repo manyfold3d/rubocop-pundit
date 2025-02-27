@@ -15,6 +15,7 @@ module RuboCop
       class UsePolicyScope < Base
         MSG = 'Wrap model in policy_scope() before using Active Model query methods.'
         RESTRICT_ON_SEND = %i[
+          all
           count
           annotate
           find
