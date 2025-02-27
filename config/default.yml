@@ -8,3 +8,14 @@ Pundit/UsePolicyScope:
     - db/**/*
     - spec/**/*
     - test/**/*
+
+Pundit/AvoidUnscoped:
+  Description: 'TODO: Write a description of the cop.'
+  Enabled: true
+  VersionAdded: '<<next>>'
+  Exclude:
+    - app/jobs/**/*
+    - config/**/*
+    - db/**/*
+    - spec/**/*
+    - test/**/*
