@@ -4,7 +4,8 @@ RSpec.describe RuboCop::Cop::Pundit::UsePolicyScope do
   let(:config) do
     RuboCop::Config.new(
       'Pundit/UsePolicyScope' => {
-        'Enabled' => true
+        'Enabled' => true,
+        'ExtraMethods' => ['super_special_finder']
       }
     )
   end
@@ -15,6 +16,9 @@ RSpec.describe RuboCop::Cop::Pundit::UsePolicyScope do
       def index
         @records = Record.all
                    ^^^^^^^^^^ Wrap model in policy_scope() before using Active Model query methods.
+
+        @special_records = Record.super_special_finder(1...3)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Wrap model in policy_scope() before using Active Model query methods.
       end
     RUBY
   end
