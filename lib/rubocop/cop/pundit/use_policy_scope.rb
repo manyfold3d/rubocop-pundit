@@ -14,38 +14,6 @@ module RuboCop
       #
       class UsePolicyScope < Base
         MSG = 'Wrap model in policy_scope() before using Active Model query methods.'
-        RESTRICT_ON_SEND = %i[
-          all
-          count
-          annotate
-          find
-          create_with
-          distinct
-          eager_load
-          extending
-          extract_associated
-          from
-          group
-          having
-          includes
-          joins
-          left_outer_joins
-          limit
-          lock
-          none
-          offset
-          optimizer_hints
-          order
-          preload
-          readonly
-          references
-          reorder
-          reselect
-          regroup
-          reverse_order
-          select
-          where
-        ].freeze
         ACTIVE_RECORD_CLASSES = %w[ActiveRecord::Base ApplicationRecord ActiveModel::Base ApplicationModel].freeze
 
         # def_node_matcher :missing_policy_scope_call?, <<~PATTERN
@@ -55,6 +23,7 @@ module RuboCop
         def on_send(node)
           # return unless missing_policy_scope_call?(node)
           return unless node.const_receiver?
+          return unless configured_methods.include?(node.method_name)
 
           # parent_class_name = find_parent_class_name(node.receiver)
           # return unless active_model?(parent_class_name)
@@ -63,6 +32,43 @@ module RuboCop
         end
 
         private
+
+        def configured_methods
+          default_methods = %i[
+            all
+            count
+            annotate
+            find
+            create_with
+            distinct
+            eager_load
+            extending
+            extract_associated
+            from
+            group
+            having
+            includes
+            joins
+            left_outer_joins
+            limit
+            lock
+            none
+            offset
+            optimizer_hints
+            order
+            preload
+            readonly
+            references
+            reorder
+            reselect
+            regroup
+            reverse_order
+            select
+            where
+          ]
+
+          Set.new(default_methods + cop_config.fetch('ExtraMethods', []).map(&:to_sym))
+        end
 
         def active_model?(parent_class_name)
           ACTIVE_RECORD_CLASSES.include?(parent_class_name)

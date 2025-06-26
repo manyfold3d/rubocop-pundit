@@ -2,6 +2,7 @@ Pundit/UsePolicyScope:
   Description: 'TODO: Write a description of the cop.'
   Enabled: true
   VersionAdded: '<<next>>'
+  ExtraMethods: []
   Exclude:
     - app/jobs/**/*
     - config/**/*
